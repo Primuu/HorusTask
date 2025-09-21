@@ -23,11 +23,7 @@ public class FileCabinet implements Cabinet {
 
     @Override
     public List<Folder> findFoldersBySize(String size) {
-        // sygnatura funkcji wskazuje na String, jendak rozważyłbym użycie Enum
-        if (size == null || !size.equals(Size.SIZE_SMALL)
-            && !size.equals(Size.SIZE_MEDIUM)
-            && !size.equals(Size.SIZE_LARGE)) throw new IllegalArgumentException("Invalid size.");
-
+        if (size == null || !FileSize.isValid(size)) throw new IllegalArgumentException("Invalid size.");
         return flattenFolders().stream()
                 .filter(f -> f.getSize().equals(size))
                 .toList();
